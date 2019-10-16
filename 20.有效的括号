@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> S;
+        for(int i=0;i<s.length();i++)
+        {
+            switch(s[i])
+            {
+                    case'(':case'[':case'{':S.push(s[i]);break;
+                    case')':if(S.empty()||('('!=S.top())) return false;S.pop();break;
+                    case']':if(S.empty()||('['!=S.top())) return false;S.pop();break;
+                    case'}':if(S.empty()||('{'!=S.top())) return false;S.pop();break;
+                default:break;
+            }
+        }
+        return S.empty();
+    }
+};
