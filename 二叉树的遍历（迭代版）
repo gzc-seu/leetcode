@@ -1,0 +1,62 @@
+//前序遍历
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> s;
+        s.push(root);
+        while (!s.empty()) {   // 每次循环遍历一条左链
+            root = s.top(); s.pop(); // 取出左链的头结点
+            while (root) {  // 遍历左链
+                ans.push_back(root->val);
+                if (root->right) s.push(root->right);  // 头结点入栈
+                root = root->left;
+            }
+        }
+        return ans;
+    }
+};
+
+//中序遍历
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+       vector<int> res;
+       stack<TreeNode*> s;
+        while(true)
+        {
+            if(root)
+            {
+                s.push(root);
+                root=root->left;
+            }
+            else if(!s.empty())
+            {
+                root=s.top();s.pop();
+                res.push_back(root -> val);
+                root=root->right;
+            }
+            else break;
+        }
+        return res;
+ }
+};
+
+//后序遍历
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> v;
+        if(root==NULL) return v;
+        stack<TreeNode*> s;
+        for(s.push(root); s.size();){
+            root=s.top();
+            s.pop();
+            if(root->left) s.push(root->left);
+            if(root->right) s.push(root->right);
+            v.push_back(root->val);
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};
