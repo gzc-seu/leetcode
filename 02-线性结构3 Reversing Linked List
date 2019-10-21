@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+void rev(vector<int>::iterator, vector<int>::iterator);
+struct Node {
+	int Data;
+	int Next;
+};
+ 
+int main() {
+	vector<Node> nodes(100000);
+	vector<int> v;
+	vector<int>::iterator it;
+	int n, head, k, i;
+	int addr, data, next;
+	scanf("%d%d%d", &head, &n, &k);
+	while (n--) {
+		scanf("%d%d%d", &addr, &data, &next);
+		nodes[addr].Data = data;
+		nodes[addr].Next = next;
+	}
+ 
+	addr = head;
+	while (addr != -1) {
+		v.push_back(addr);
+		addr = nodes[addr].Next;
+	}
+ 
+	i = 0;
+	n = v.size();  //注意有多余结点不在链表上
+	while(k > 1 && i+k <= n){
+		//reverse(v.begin() + i, v.begin() + (i + k));
+		rev(v.begin() + i, v.begin() + (i + k));
+		i = i + k;		
+	}
+ 
+	for (it = v.begin();it != (v.end() - 1);++it)
+		printf("%05d %d %05d\n", *it, nodes[*it].Data, *(it + 1));
+	printf("%05d %d %d\n", *it, nodes[*it].Data,-1);
+	return 0;
+}
+ 
+void rev(vector<int>::iterator b, vector<int>::iterator e) {
+	int t;
+	e--;
+	while (b < e) {
+		t = *b;
+		*b = *e;
+		*e = t;
+		++b;--e;
+	}
+}
