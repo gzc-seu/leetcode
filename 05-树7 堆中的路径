@@ -1,0 +1,62 @@
+#include<iostream>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+ 
+#define MAXN 1001
+#define MINH -10001
+#define ERROR -1
+ 
+void Create();
+void Insert(int ElemX);
+ 
+int MinH[MAXN];
+int size;
+int main()
+{
+	int i, j, n, m, ElemX;
+ 
+	cin>>n>>m;
+	
+	Create();
+	for (i = 0; i < n; i++)
+	{
+		cin>>ElemX;
+		Insert(ElemX);
+	}
+	for (i = 0; i < m; i++)
+	{
+		cin>>j;
+		cout<<MinH[j];
+		while (j>1)
+		{
+			j /= 2;
+            cout<<" "<<MinH[j];
+		}
+		cout<<endl;
+	}
+ 
+	system("pause");
+	return 0;
+}
+ 
+void Create()
+{
+	MinH[0] = MINH; // 设置哨岗
+	size = 0;
+}
+ 
+void Insert(int ElemX)
+{
+	int i;
+ 
+	if (size >= MAXN)
+	{
+		cout<<"最小堆已满！";
+		return;
+	}
+	for (i = ++size; MinH[i / 2] > ElemX; i /= 2)
+		MinH[i] = MinH[i / 2];
+	MinH[i] = ElemX;
+}
+ 
