@@ -1,0 +1,23 @@
+//huffman树的构造，伪代码
+//函数、定义等参考heap.cpp
+typedef struct TreeNode* HuffmanTree;
+struct TreeNode
+{
+    int Weight;
+    HuffmanTree Left,Right;
+};
+HuffmanTree Huffman(MinHeap H)
+{
+    HuffmanTree T;
+    BuildMinHeap(H);
+    for(int i=0;i<H->Size;i++)
+    {
+        T=(HuffmanTree)malloc(sizeof(struct TreeNode));
+        T->Left=DeleteMin(H);
+        T->Right=DeleteMin(H);
+        T->Weight=T->Left->Weight+T->Right->Weight;
+        Insert(H,T);
+    }
+    T=DeleteMin(H);
+    return T;
+}
