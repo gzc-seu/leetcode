@@ -80,7 +80,7 @@ LGraph BuildGraph()
     cin>>Graph->Ne;   //输入边的个数
     if(Graph->Ne!=0)
     {
-        E=(Edge)mallos(sizeof(struct ENode)); /* 建立边结点 */
+        E=(Edge)mallo(sizeof(struct ENode)); /* 建立边结点 */
         for(int i=0;i<Graph->Ne;i++)
         {
             cin>>E->V1>>E->V2>>E->Weight;   /* 读入边，格式为"起点 终点 权重"，插入邻接矩阵 */
