@@ -1,0 +1,52 @@
+//1、复制原数组中的前k个元素，建立一个小顶堆
+
+//2、遍历原始数据，每遍历到一个比当前小顶堆根元素大的数值就进行替换，然后重建堆。
+
+//3、遍历完成后，数组的前k大元素就被保存在小顶堆中了，根元素就是返回值。
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int[] heap = new int[k];
+        for(int i = 0; i < k; i++)
+            heap[i] = nums[i];
+
+        buildHeap(heap);
+        for(int i = k; i < nums.length; i++){
+            int number = nums[i];
+            if(number > heap[0]){
+                heap[0] = number;
+                buildHeap(heap);
+            }
+        }
+
+        return heap[0];
+    }
+
+    private void buildHeap(int[] heap){
+        for(int i = heap.length / 2; i >= 0; i--){
+            heap(i, heap.length, heap);
+        }
+    }
+
+    private void heap(int i, int n, int[] heap){
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        int min = i;
+
+        if(l < n && heap[l] < heap[min])
+            min = l;
+
+        if(r < n && heap[r] < heap[min])
+            min = r;
+
+        if(min != i){
+            swap(heap, min, i);
+            heap(min, n, heap);
+        }
+    }
+
+    private void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
