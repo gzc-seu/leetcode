@@ -1,0 +1,22 @@
+class Solution {
+    public int hammingDistance(int x, int y) {
+        int count=0;
+        int n=32;
+        while(n>0){
+            int temp1=x&0x00000001;
+            int temp2=y&0x00000001;
+            if(temp1!=temp2) count++;
+            x=x>>1;
+            y=y>>1;
+            n=n-1;
+        }
+        return count;
+    }
+}
+//异或运算：相同的为0，不同的为1
+//将两个数做异或运算，然后计算1的个数即是答案。
+class Solution {
+    public int hammingDistance(int x, int y) {
+        return Integer.bitCount(x ^ y);
+    }
+}
