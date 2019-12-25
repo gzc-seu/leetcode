@@ -1,0 +1,29 @@
+class Solution {
+    List<List<Integer>> lists=new ArrayList<>();
+    public List<List<Integer>> combine(int n, int k) {
+        if(n<=0 || k<=0 || k>n) return lists;
+        List<Integer> list = new ArrayList<>();
+        backtrack(n,k,list,1);
+        return lists;
+    }
+    public void backtrack(int n, int k,List<Integer> list,int index){
+        if(k<0) return;
+        if(k==0) lists.add(new ArrayList<>(list));
+        for(int i=index;i<=n;i++){
+            list.add(i);
+            backtrack(n,k-1,list,i+1);
+            list.remove(list.size() - 1);
+        }
+    }
+}
+/**
+(1)定义一个全局List<List<Integer>> result=new ArrayList<List<Integer>>();
+(2)定义一个辅助的方法（函数）public void backtracking(int n,int k, List<Integer>list){}
+(3)接着就是我们的重头戏了，如何实现这个算法？对于n=4，k=2，1,2,3,4中选2个数字，我们可以做如下尝试，加入先选择1，那我们只需要再选择一个数字,
+注意这时候k=1了（此时只需要选择1个数字啦）。当然，我们也可以先选择2,3 或者4，通俗化一点，我们可以选择（1-n）的所有数字，这个是可以用一个循环来描述？
+每次选择一个加入我们的链表list中，下一次只要再选择k-1个数字。那什么时候结束呢？当然是k<0的时候啦，这时候都选完了.
+(4)们加入了一个start变量，它是i的起点。为什么要加入它呢？比如我们第一次加入了1，下一次搜索的时候还能再搜索1了么？肯定不可以啊！
+我们必须从他的下一个数字开始，也就是2 、3或者4啦。所以start就是一个开始标记这个很重要啦！
+(5)list.remove(list.size()-1);他的作用就是每次清除一个空位 让后续元素加入。
+寻找成功，最后一个元素要退位，寻找不到，方法不可行，那么我们回退，也要移除最后一个元素
+
