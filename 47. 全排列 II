@@ -1,0 +1,26 @@
+class Solution {
+    List<List<Integer>> lists=new ArrayList<>();
+    public List<List<Integer>> permuteUnique(int[] nums) {
+       if(nums==null||nums.length==0) return lists;
+        List<Integer> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(nums,list,0,new boolean[nums.length]);
+        return lists;
+    }
+    public void backtrack(int[] nums,List<Integer> list,int index,boolean[] used){
+        if(nums==null||nums.length==0) return;
+        if(index==nums.length) {
+            lists.add(new ArrayList<>(list));
+        }
+        for(int i=0;i<nums.length;i++){
+            if(used[i]||i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) continue;
+            used[i]=true;
+            list.add(nums[i]);
+            backtrack(nums,list,index+1,used);
+            used[i]=false;
+            list.remove(list.size() - 1);
+        }
+    }
+}
+//used[i] = true:表示索引 i 位置的元素已经使用过
+//当数组中有重复元素的时候，可以先将数组排序，排序以后在递归的过程中可以很容易发现重复的元素。当发现重复元素的时候，让这一个分支跳过，以达到“剪枝”的效果，重复的排列就不会出现在结果集中。
