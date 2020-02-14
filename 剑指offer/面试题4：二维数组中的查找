@@ -1,0 +1,17 @@
+public class Solution {
+    public boolean Find(int target, int [][] array) {
+        int rows = array.length,cols = array[0].length;//行数，列数
+        if(array==null||rows==0||cols==0) return false;
+        int r=0,c=cols-1;//从右上角开始
+        while(r<rows&&c>=0){
+            if(array[r][c]==target){
+                return true;
+            }else if(array[r][c]>target){
+                c--;
+            }else{
+                r++;
+            }
+        }
+        return false;
+    }
+}
