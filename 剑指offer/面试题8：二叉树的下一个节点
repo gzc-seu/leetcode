@@ -1,0 +1,33 @@
+/*
+public class TreeLinkNode {
+    int val;
+    TreeLinkNode left = null;
+    TreeLinkNode right = null;
+    TreeLinkNode next = null;
+
+    TreeLinkNode(int val) {
+        this.val = val;
+    }
+}
+*/
+public class Solution {
+    public TreeLinkNode GetNext(TreeLinkNode pNode)
+    {
+        if(pNode==null) return null;
+        if(pNode.right!=null){
+            TreeLinkNode pRight=pNode.right;
+            while(pRight.left!=null){
+                pRight=pRight.left;
+            }
+            return pRight;
+        }else if(pNode.next!=null){
+            while(pNode.next!=null&&pNode==pNode.next.right){
+                pNode=pNode.next;
+            }
+            return pNode.next;
+        }
+        return null;
+    }
+}
+//思路：若节点有右子树，则下一个节点为右子树的最左节点。若没有右子树，但为父节点的左节点，则下一个节点为父节点。
+//若既没有右子树，也是父节点的右节点，则沿父节点向上，知道某节点为父节点的左节点，则下一个为该节点的父节点。
