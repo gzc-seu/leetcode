@@ -1,0 +1,15 @@
+public class Solution {
+    public double Power(double base, int exponent) {
+         if(exponent==0) return 1;
+        if(exponent==1) return base;
+        boolean Nagetive=false;
+        if(exponent<0){
+            exponent=-exponent;
+            Nagetive=true;
+        }
+        double pow=0.0;
+        if(exponent%2==0)pow=Power(base*base,exponent/2);
+        else pow=Power(base*base,(exponent-1)/2)*base;
+        return Nagetive?1/pow:pow;
+  }
+}

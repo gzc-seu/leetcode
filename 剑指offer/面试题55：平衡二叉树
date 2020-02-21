@@ -1,0 +1,33 @@
+public class Solution {
+   private boolean flag=true;
+    public boolean IsBalanced_Solution(TreeNode root) {
+        TreeDepth(root);
+        return flag;
+    }
+    public int TreeDepth(TreeNode root) {
+        if(root==null) return 0;
+        int left=TreeDepth(root.left);
+        int right=TreeDepth(root.right);
+        if(left-right >= 2 || right - left >= 2)
+       {
+           flag = false;//高度差大于2 不是平衡的了
+       }
+        return (left>right)?(left+1):(right+1);
+    }
+}
+//这种做法有很明显的问题，在判断上层结点的时候，会多次重复遍历下层结点，增加了不必要的开销。
+//如果改为从下往上遍历，如果子树是平衡二叉树，则返回子树的高度；如果发现子树不是平衡二叉树，则直接停止遍历，这样至多只对每个结点访问一次。
+public class Solution {
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if(TreeDepth(root)==-1) return false;
+        else return true;
+    }
+    public int TreeDepth(TreeNode root){
+        if(root==null) return 0;
+        int left=TreeDepth(root.left);
+        if(left==-1) return -1;
+        int right=TreeDepth(root.right);
+        if(right==-1) return -1;
+        return Math.abs(left - right) > 1 ? -1 : 1 + Math.max(left, right);
+    }
+}
