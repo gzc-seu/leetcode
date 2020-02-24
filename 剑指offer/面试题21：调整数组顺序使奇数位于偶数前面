@@ -1,0 +1,17 @@
+public class Solution {
+    public void reOrderArray(int [] array) {
+        if(array==null) return;
+        for(int i=array.length-1;i>=0;i--){
+            for(int j=0;j<i;j++){
+                if(array[j]%2==0&&array[j+1]%2!=0){
+                    swap(array,j,j+1);
+                }
+            }
+        }
+    }
+    private void swap(int[] nums, int i, int j) {
+    int t = nums[i];
+    nums[i] = nums[j];
+    nums[j] = t;
+}
+}
