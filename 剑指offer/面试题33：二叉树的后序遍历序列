@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean VerifySquenceOfBST(int [] sequence) {
+        if(sequence==null||sequence.length<=0) return false;
+        return VerifySquenceOfBST(sequence,0,sequence.length-1);
+    }
+    public boolean VerifySquenceOfBST(int [] sequence,int start,int end){
+        if(end<=start) return true;
+        int root=sequence[end];
+        int leftLength=0;
+        for(;leftLength<end;leftLength++){
+            if(sequence[leftLength]>root) break;
+        }
+        int rightLength=leftLength;
+        for(;rightLength<end;rightLength++){
+            if(sequence[rightLength]<root)return false;;
+        }
+        return VerifySquenceOfBST(sequence,start,leftLength-1)&&VerifySquenceOfBST(sequence,leftLength,end-1);
+    }
+}
