@@ -1,0 +1,40 @@
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+import java.util.*;
+public class Solution {
+    TreeNode KthNode(TreeNode pRoot, int k)
+    {
+        if(pRoot==null||k==0) return null;
+        List<TreeNode> list=inorderTraversal(pRoot);
+        if(k>list.size()) return null;
+        return list.get(k-1);
+    }
+    public List<TreeNode> inorderTraversal(TreeNode root){
+        List<TreeNode> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if(root==null) return list;
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()){
+            if(cur!=null){
+                stack.push(cur);
+                cur=cur.left;
+            }else{
+                cur=stack.pop();
+                list.add(cur);
+                cur=cur.right;
+            }
+        }
+        return list;
+    }
+}
