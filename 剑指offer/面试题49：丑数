@@ -1,0 +1,22 @@
+public class Solution {
+    public int GetUglyNumber_Solution(int index) {
+        if(index<=0) return 0;
+        int[] result = new int[index];
+        result[0]=1;
+        int i2=0,i3=0,i5=0;
+        int count=0,temp=0;
+        while(count<index-1){
+            temp=min(result[i2]*2,result[i3]*3,result[i5]*5);
+            if(temp==result[i2]*2) i2++;
+            if(temp==result[i3]*3) i3++;
+            if(temp==result[i5]*5) i5++;
+            result[++count]=temp;
+        }
+        return result[index-1];
+    }
+    public int min(int n1,int n2,int n3){
+        int min=n1<n2?n1:n2;
+        min=min<n3?min:n3;
+        return min;
+    }
+}
