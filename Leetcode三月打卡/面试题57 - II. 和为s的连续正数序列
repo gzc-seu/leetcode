@@ -1,0 +1,21 @@
+class Solution {
+    public int[][] findContinuousSequence(int target) {
+        ArrayList<int[]> res = new ArrayList<>();
+        for(int i = 1;i<=target/2;i++){
+            int sum=0;
+            int j=i;
+            while(sum<target){
+                sum+=j;
+                j++;
+            }
+            if(sum==target){
+                int[] sol = new int[j-i];
+                for(int k=0;k<j-i;k++){
+                    sol[k]=k+i;
+                }
+                res.add(sol);
+            }
+        }
+        return res.toArray(new int[res.size()][]);
+    }
+}
