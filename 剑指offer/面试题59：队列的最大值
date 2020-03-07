@@ -1,0 +1,29 @@
+import java.util.*;
+public class Solution {
+    public ArrayList<Integer> maxInWindows(int [] num, int size)
+    {
+        if (num == null || num.length == 0 || size <= 0 || num.length < size) {
+            return new ArrayList<Integer>();
+        }
+        ArrayList<Integer> result = new ArrayList<>();
+        //双端队列，用来记录每个窗口的最大值下标
+        LinkedList<Integer> qmax = new LinkedList<>();
+        for (int i = 0; i < num.length; i++){
+            // 从后面依次弹出队列中比当前num值小的元素，同时也能保证队列首元素为当前窗口最大值下标
+            while (!qmax.isEmpty() && num[qmax.peekLast()] < num[i]){
+                qmax.pollLast();
+            }
+            // 把每次滑动的num下标加入队列
+            qmax.addLast(i);
+            // 当队首元素坐标对应的num不在窗口中，需要弹出
+            if (qmax.peekFirst() == i - size) {
+                qmax.pollFirst();
+            }
+            // 当滑动窗口首地址i大于等于size时才开始写入窗口最大值
+            if (i >= size - 1) {
+                result.add(num[qmax.peekFirst()]);
+            }
+        }
+        return result;
+    }
+}

@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+       ArrayList<ArrayList<Integer>> res=new ArrayList<ArrayList<Integer>>();
+        if(sum==0) return res;
+        int small=1,big=2;
+        while(small<big){
+            int curSum=(small+big)*(big-small+1)/2;
+            if(curSum==sum){
+                ArrayList<Integer> temp=new ArrayList<>();
+                for(int i=small;i<=big;i++){
+                    temp.add(i);
+                }
+                res.add(temp);
+                small++;
+            }
+            if(curSum>sum){
+                small++;
+            }
+            if(curSum<sum){
+                big++;
+            }
+        }
+        return res;
+    }
+}
