@@ -1,0 +1,27 @@
+public class Solution {
+    public int LastRemaining_Solution(int n, int m) {
+        int[] rings=new int[n];
+        for(int i=0;i<n;i++){
+            rings[i]=1;
+        }
+        int index=-1,count=0,sum=n;
+        while(sum>1){
+            count++;
+            index++;
+            if(index==n) index=0;
+            while(rings[index]==0){
+                index++;
+                if(index==n) index=0;
+            }
+            if(count==m){
+                count=0;
+                sum--;
+                rings[index]=0;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(rings[i]!=0) return i;
+        }
+        return -1;
+    }
+}

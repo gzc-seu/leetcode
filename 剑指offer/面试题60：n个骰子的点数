@@ -1,0 +1,33 @@
+import java.text.NumberFormat;
+class Solution {
+     private static final int maxValue = 6;
+    public double[] twoSum(int n) {
+        if(n<=0) return null;
+        int[] probabilities = new int[maxValue*n-n+1];
+        double[] res=new double[maxValue*n-n+1];
+        //下标为i，对应的值代表点数之和为i+number总共出现的情况次数
+        //点数从number~maxValue*number，所以数组大小为6*number-number+1
+        for(int i=0;i<probabilities.length;i++)
+            probabilities[i]=0;
+        
+        //计算不同点数出现的次数
+        for(int i=1;i<=maxValue;i++){
+            calP(probabilities,n,n-1,i);
+        }
+        int totalP = (int) Math.pow(maxValue, n);  //所有情况总共出现的次数
+        for( int i=0;i<probabilities.length ;i++) {
+            double ratio = (double)probabilities[i]/totalP;
+            res[i]=ratio;
+        }
+        return res;
+    }
+    private void calP(int[] probabilities, int number, int curNumber, int sum){
+        if(curNumber==0){
+            probabilities[sum-number]++;
+            return;
+        }
+        for(int i=1;i<=maxValue;i++){
+            calP(probabilities,number,curNumber-1,i+sum);
+        }
+    }
+}
