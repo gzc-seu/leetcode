@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//可以将二叉树的直径转换为：二叉树的 每个节点的左右子树的高度和 的最大值。
+class Solution {
+    private int max=0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root==null) return 0;
+        height(root);
+        return max;
+    }
+    public int height(TreeNode root){
+        if(root==null) return 0;
+        int left=height(root.left);
+        int right=height(root.right);
+        if(left+right>max)max=left+right;
+        return Math.max(left,right)+1;
+    }
+}
