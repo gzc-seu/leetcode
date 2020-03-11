@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root.val == p.val || root.val == q.val) {
+            return root;
+        }
+        TreeNode left  = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        //p q 一个在左子树 一个在右子树 那么当前节点即是最近公共祖先
+        if(left!=null&&right!=null){
+            return root;
+        }
+        // p q 都在左子树
+        if(left==null) return right;
+        // p q 都在右子树
+        if(right==null) return left;
+        return null;
+
+    }
+}
