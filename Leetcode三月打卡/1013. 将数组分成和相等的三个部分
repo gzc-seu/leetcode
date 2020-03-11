@@ -1,0 +1,25 @@
+class Solution {
+    public boolean canThreePartsEqualSum(int[] A) {
+        int sum = 0;
+        for (int num: A) {
+            sum += num;
+        }
+        // 数组A的和如果不能被3整除直接返回false
+        if (sum % 3 != 0) {
+            return false;
+        }
+        // 遍历数组累加，每累加到目标值cnt加1，表示又找到1段
+        sum /= 3;
+        int curSum = 0, cnt = 0;
+        for(int i=0;i<A.length;i++){
+            curSum += A[i];
+            if(curSum==sum){
+                cnt++;
+                curSum=0;
+            }
+        }
+        //考虑到sum = 0的特殊情况,最后的sum/3数组中,
+        //仍然可能含有部分和为0的子结构, 导致计数变量cnt > 3
+        return cnt>=3;
+    }
+}
