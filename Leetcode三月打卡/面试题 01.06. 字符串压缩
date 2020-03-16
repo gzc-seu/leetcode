@@ -1,0 +1,25 @@
+class Solution {
+    public String compressString(String S) {
+        if(S==null||S.length()==0) return S; 
+        StringBuilder res = new StringBuilder();
+        char s=S.charAt(0);
+        int times=1;
+        for(int i=1;i<S.length();i++){
+            char cur = S.charAt(i);
+            if(cur==s){
+                times++;
+            }else{
+                res.append(s).append(times);
+                s=cur;
+                times=1;
+            }
+        }
+         // 把最后一个字符以及频率拼接上去
+        res.append(s).append(times);
+        // 判断压缩字符串是否比原字符串短
+        if(res.length() >= S.length()) {
+        	return S;
+        }
+        return res.toString();
+    }
+}
