@@ -1,0 +1,20 @@
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        int[] hash=new int[26];
+        for(int i=0;i<chars.length();i++){
+            hash[chars.charAt(i)-'a']++;
+        }
+        int res=0;
+        int[] map = new int[26];      
+        for(String s:words){
+            boolean flag = true;
+            Arrays.fill(map,0);
+            for(int i=0;i<s.length();i++){
+                map[s.charAt(i)-'a']++;
+                if (map[s.charAt(i)-'a'] > hash[s.charAt(i)-'a']) flag = false;
+            }
+            if(flag==true) res += s.length();
+        }
+        return res;
+}
+}

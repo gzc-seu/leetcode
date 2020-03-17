@@ -1,0 +1,33 @@
+ public int findNthDigit(int n) {
+        int digit=1,sum=n;
+        while(true){
+            int count=countOfIntegers(digit)*digit;
+            if(sum<count){
+                int number=beginNumber(digit)+sum/digit;
+                int ref=sum%digit;
+                return digitAtIndex(number,digit-ref);
+            }
+            sum-=count;
+            digit++;
+        }
+    }
+
+    //digit位数字共多少个。比如一位10个，两位90个，三位900个
+    public int countOfIntegers(int digit){
+        if(digit==1) return 10;
+        return 9*(int)Math.pow(10,digit-1);
+    }
+    //digit位数的第一个数字是多少
+    public int beginNumber(int digit){
+        if(digit==1) return 0;
+        return (int)Math.pow(10,digit-1);
+    }
+    public int digitAtIndex(int n,int digit){
+        int res=0;
+        while(digit>0){
+            res=n%10;
+            n=n/10;
+            digit--;
+        }
+        return res;
+    }
