@@ -1,0 +1,32 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        if (s == null) {
+            return 0;
+        }
+
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i=0; i<s.length(); ++i){
+            char ch=s.charAt(i);
+            if(map.containsKey(ch)){
+                map.put(ch,map.get(ch)+1);
+            }else{
+                map.put(ch,1);
+            }
+        }
+
+        int len=0; 
+        //大神解法：len += x - (x & 1);
+        for(Integer val:map.values()){
+            //如果是偶数直接加
+            if(val%2==0){
+                len+=val;
+            }else{
+                //如果是奇数，加偶数部分
+                val--;
+                len+=val;
+            }
+        }
+        if(len!=s.length()) return ++len;
+        else return len;
+    }
+}
