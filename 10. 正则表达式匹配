@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isMatch(String s, String p) {
+        if(s==null||p==null) return false;
+        return matchCore(s.toCharArray(),p.toCharArray(),0,0);
+    }
+    public boolean matchCore(char[] s, char[] p,int sIndex,int pIndex){
+        if(sIndex==s.length&&pIndex==p.length) return true;
+        if(sIndex!=s.length&&pIndex==p.length) return false;
+        if(pIndex+1<p.length&&p[pIndex+1]=='*'){
+            if((sIndex<s.length&&s[sIndex]==p[pIndex])||(sIndex<s.length&&p[pIndex]=='.')){
+                return matchCore(s,p,sIndex+1,pIndex)
+                ||matchCore(s,p,sIndex+1,pIndex+2)
+                ||matchCore(s,p,sIndex,pIndex+2);
+            }else{
+                return matchCore(s,p,sIndex,pIndex+2);
+            }
+        }
+        if((sIndex<s.length&&s[sIndex]==p[pIndex])||(sIndex<s.length&&p[pIndex]=='.')){
+            return matchCore(s,p,sIndex+1,pIndex+1);
+        }
+        return false;
+    }
+}
+//分两种情况：下一个字符是不是*
+//1、如果下一个字符是*，前一个字符不相等的话，直接跳过；
+//前一个字符相等的话，将*认为是0直接跳过，将*认为是1，将*认为是多个；
+//2、如果下一个不是*，前一个字符相等或为.，比较下一个，否则为false

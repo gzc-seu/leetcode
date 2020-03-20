@@ -1,0 +1,39 @@
+class Solution {
+    public int[] getLeastNumbers(int[] arr, int k) {
+        if (k == 0 || arr.length == 0) {
+            return new int[0];
+        }
+        return quickSort(arr,0,arr.length-1,k);
+       
+        /**int[] ans=new int[k];
+        for(int i=0;i<k;i++){
+            ans[i]=arr[i];
+        }
+        return ans;**/
+    }
+    public static int[] quickSort(int[] arr,int l,int r,int k){
+            int p=partition(arr,l,r);
+            if(p==k){
+                return Arrays.copyOf(arr, p );
+            }
+            return p>k?quickSort(arr,l,p-1,k):quickSort(arr,p+1,r,k);               
+    }
+    public static int partition(int[] arr,int l,int r){
+        int less=l-1,more=r+1,p=arr[r];
+        while(l<more){
+            if(arr[l]<p){
+                swap(arr,++less,l++);
+            }else if(arr[l]==p){
+                l++;
+            }else{
+                swap(arr,l,--more);
+            }
+        }
+        return ++less;
+    }
+    public static void swap(int[] arr,int i,int j){
+        int temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+}
